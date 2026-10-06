@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,8 +27,24 @@ SECRET_KEY = 'django-insecure-!wt2$d1rl8=3)j+&gbf6+!4ysu-y)!j&@_1$m070-v$=(f18hc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
+
+# Django REST framework to use JWT authentication and require authentication for all API endpoints.
+REST_FRAMEWORK = {
+  "DEFAULT_AUTHENTICATION_CLASSES":(
+    "rest_framework_simplejwt.authentication.JWTAutherntication",
+  ),
+  "DEFAULT_PERMISSION_CLASSES":(
+    "rest_framework.permissions.IsAuthenticated",
+  ),
+}
+
+# Simple JWT settings to configure the lifetime of access and refresh tokens.
+SIMPLE_JWT = {
+  "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
+  "REFRESH_TOKEN_LIFETIME": timedelta(days=1), # Refresh token lifetime is set to 1 day. help us to get new access token after 30 minutes without re-login.
+}
 
 # Application definition
 
@@ -37,6 +55,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "api",
+    "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
@@ -47,6 +68,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # corsheaders middleware to handle Cross-Origin Resource Sharing (CORS) requests.
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -121,3 +143,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWS_CREDENTIALS = True
