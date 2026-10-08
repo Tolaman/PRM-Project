@@ -13,7 +13,7 @@ class CreateUserView(generics.CreateAPIView):
   # a new one is created to make use that we don't create a user that already exist
   queryset = User.objects.all() 
   # this class tells us what kind of data we need to accept when creating a new user.
-  serializer_class = User 
+  serializer_class = UserSerializer
   # this class specifies who can call this view, in this case, we want to allow anyone 
   # to create a new user, so we use AllowAny permission class.
   permission_classes = [AllowAny] 
