@@ -4,8 +4,11 @@ from rest_framework import generics
 from .serializers import UserSerializer
 from rest_framework.permissions import isAuthenticated, AllowAny
 
+# Create your views here.
+
+# this class is a view that handles the creation of new users. It inherits from Django 
+# Rest Framework's CreateAPIView, which provides a built-in implementation for creating new objects.
 class CreateUserView(generics.CreateAPIView):
-  # 
   # this specify the list of all the defirents objects that we will be loking at when 
   # a new one is created to make use that we don't create a user that already exist
   queryset = User.objects.all() 
