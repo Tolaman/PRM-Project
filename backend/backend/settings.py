@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ["*"]
 # Django REST framework to use JWT authentication and require authentication for all API endpoints.
 REST_FRAMEWORK = {
   "DEFAULT_AUTHENTICATION_CLASSES":(
-    "rest_framework_simplejwt.authentication.JWTAutherntication",
+    "rest_framework_simplejwt.authentication.JWTAuthentication",
   ),
   "DEFAULT_PERMISSION_CLASSES":(
     "rest_framework.permissions.IsAuthenticated",
